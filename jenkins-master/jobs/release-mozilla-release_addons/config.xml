@@ -83,7 +83,7 @@
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact>
       <projectName>get_mozmill-environments</projectName>
-      <filter></filter>
+      <filter>$ENV_PLATFORM\**</filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.WorkspaceSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
