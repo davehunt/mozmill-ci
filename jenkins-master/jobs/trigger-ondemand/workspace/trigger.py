@@ -64,9 +64,10 @@ def main():
             except:
                 continue
 
+            if script in ['endurance']:
+                node_labels.append(script)
+
             for locale in locales:
-                if script in ['endurance']:
-                    node_labels.append(script)
 
                 parameters = {
                     'BUILD_TYPE': build_type,
