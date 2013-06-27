@@ -113,7 +113,9 @@ Once the changes have been landed you will have to update the staging or product
 If you see an ondemand_* testrun in the middle is blinking and the nodes on the left are not 'idle', your testrun is executing. The results should appear in your dashboard when complete.
 
 ## Uninterrupted Aurora update tests
-After a merge, the Aurora updates are temporarily disabled. In order for the Aurora update tests to continue,
-the channel must be changed from 'aurora' to 'auroratest'. You can do this by configuring the 
-mozilla-aurora_update job via the Jenkins web console and changing the default value for the CHANNEL 
-parameter. Note that if a new release of Mozmill CI is made, the default will reset back to 'aurora'.
+After a Firefox release, the source code is merged from default -> aurora and from aurora -> beta.
+At this point the Aurora updates are temporarily disabled. In order for the Aurora update tests to
+continue, the channel must be changed from 'aurora' to 'auroratest'. You can do this by configuring
+the mozilla-aurora_update job via the Jenkins web console and changing the default value for the
+CHANNEL parameter. Note that if a new release of Mozmill CI is made, the default will reset back to
+'aurora'.
