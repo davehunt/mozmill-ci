@@ -32,7 +32,7 @@
         </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>CHANNEL</name>
-          <description>Update channel.</description>
+          <description>Update channel. Use 'nightlytest' when updates for the 'nightly' channel are disabled.</description>
           <defaultValue>nightly</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>

@@ -32,7 +32,7 @@
         </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>CHANNEL</name>
-          <description>Update channel. Use auroratest when updates are disabled.</description>
+          <description>Update channel. Use 'auroratest' when updates for the 'aurora' channel are disabled.</description>
           <defaultValue>aurora</defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
