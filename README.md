@@ -64,7 +64,7 @@ http://localhost:8080/configure under the section headed "Global properties".
 ## Jenkins URL
 If you intend to connect to this Jenkins instance from another machine (for
 example connecting additional nodes) you will need to update the `Jenkins URL`
-to the IP or DNS name. This can be could in http://localhost:8080/configure
+to the IP or DNS name. This can be found in http://localhost:8080/configure
 under the section headed "Jenkins Location".
 
 ## Adding new Nodes
@@ -194,3 +194,9 @@ made, the default will reset back to 'aurora'.
 If Jenkins fails to start it may be due to the default memory requirements. If
 your machine has less than 2GB of available memory you may need to reduce the
 values for `Xms` and `Xmx` in `start.sh`
+
+Due to [issue #125](https://github.com/mozilla/mozmill-ci/issues/125)
+you may experience issues saving the Jenkins configuration. If so, try
+unchecking the 'Node Offline Email Notification' on the node configuration and
+submit your configuration changes again. You should then be able to check the
+box again and save.
