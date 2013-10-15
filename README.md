@@ -83,9 +83,9 @@ Open the terminal or any other package manager and install the following
 packages:
 
 ```bash
-sudo add-apt-repository ppa:ferramroberto/java
+sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
-sudo apt-get install sun-java6-jre sun-java6-plugin
+sudo apt-get install oracle-java7-installer
 ```
 
 Also make sure that the screensaver and any energy settings have been turned
