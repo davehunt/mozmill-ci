@@ -44,11 +44,3 @@ if __name__ == "__main__":
     except IOError:
         print "Could not activate virtual environment."
         print "Exiting."
-
-    
-    
-    
-    
-
-
-
