@@ -1,41 +1,65 @@
 #!/usr/bin/env python
 
 import os
+import re
 from subprocess import call
 import urllib2
 
+from mozdownload import DirectScraper
+
 JENKINS_VERSION = '1.509.4'
 JENKINS_URL = 'http://mirrors.jenkins-ci.org/war-stable/%s/jenkins.war' % JENKINS_VERSION
+JENKINS_ROOT = os.path.dirname(JENKINS_URL)
 JENKINS_WAR = 'jenkins-%s.war' % JENKINS_VERSION
+JENKINS_ENV = 'jenkins-env/bin/activate_this.py'
 
-def download_jenkins(url, war_file):
+
+def jenkins_is_up_to_date():
+    """Checks if Jenkins was updated"""
+    req = urllib2.urlopen(JENKINS_ROOT)
+    page = req.read()
+
+    months_regex = '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)'
+    regex = r'\d\d-%(MONTH)s-\d\d\d\d \d\d:\d\d' % {'MONTH': months_regex}
+
+    pattern = re.compile(regex)
+    match = re.search(pattern, page).group()
+
+    if os.path.isfile('last_update.txt'):
+        with open('last_update.txt', 'r') as txt:
+            check = txt.read()
+            if match == check:
+                return True
+
+    with open('last_update.txt', 'w') as txt:
+        txt.write(match)
+    return False
+
+
+def download_jenkins():
     """Downloads Jenkins.war file"""
 
-    tmp_file = JENKINS_WAR + ".part"
-    
-    while True:
-        try:
-            r = urllib2.urlopen(url)
-            CHUNK = 16 * 1024
-            with open(tmp_file, 'wb') as f:
-                for chunk in iter(lambda: r.read(CHUNK), ''):
-                    f.write(chunk)
-            break
-        except (urllib2.HTTPError, urllib2.URLError):
-            print "Download failed."
-    os.rename(tmp_file, JENKINS_WAR)
+    if jenkins_is_up_to_date():
+        pass
+    else:
+        print "Downloading Jenkins %s from %s" % (JENKINS_VERSION, JENKINS_URL)
+        if os.path.isfile('jenkins.war'):
+            os.remove('jenkins.war')
+        scraper = DirectScraper(url=JENKINS_URL,
+                                directory=os.getcwd(),
+                                version=None)
+        scraper.download()
 
 if __name__ == "__main__":
-    print "Downloading Jenkins %s from %s" % (JENKINS_VERSION, JENKINS_URL)
-    download_jenkins(JENKINS_URL, JENKINS_VERSION)
-    
-    # for more info see:
-    # http://stackoverflow.com/questions/6943208/activate-a-virtualenv-with-a-python-script/14792407#14792407
-    try:    
+    download_jenkins()
+
+    try:
+        # for more info see:
+        # http://www.virtualenv.org/en/latest/#using-virtualenv-without-bin-python
         activate_this_file = 'jenkins-env/bin/activate_this.py'
-        execfile(activate_this_file, dict(__file__=activate_this_file))
+        execfile(JENKINS_ENV, dict(__file__=JENKINS_ENV))
         print "Virtual environment activated successfully."
-        
+
         # TODO: Start Jenkins as daemon
         print "Starting Jenkins"
         args = ['java', '-jar', '-Xms2g', '-Xmx2g', '-XX:MaxPermSize=512M',
