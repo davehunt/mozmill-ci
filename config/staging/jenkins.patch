@@ -1,20 +1,27 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index d589b79..736d618 100644
+index 91f9eef..c6f522c 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
-@@ -14,7 +14,88 @@
-   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
-   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+@@ -16,19 +16,84 @@
    <clouds/>
--  <slaves/>
-+  <slaves>
-+    <slave>
+   <slaves>
+     <slave>
+-      <name>dummy</name>
+-      <description></description>
+-      <remoteFS></remoteFS>
 +      <name>ubuntu_32_01</name>
 +      <description>Ubuntu 32bit</description>
 +      <remoteFS>jenkins</remoteFS>
-+      <numExecutors>1</numExecutors>
-+      <mode>NORMAL</mode>
-+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+       <numExecutors>1</numExecutors>
+       <mode>NORMAL</mode>
+       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+-      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@0.25">
+-        <host></host>
+-        <port>22</port>
+-      </launcher>
+-      <label></label>
+-      <nodeProperties/>
+-      <userId>anonymous</userId>
 +      <launcher class="hudson.slaves.JNLPLauncher"/>
 +      <label>linux ubuntu 32bit endurance</label>
 +      <nodeProperties>
@@ -87,12 +94,10 @@ index d589b79..736d618 100644
 +          </ruby-object>
 +        </ruby-proxy-object>
 +      </nodeProperties>
-+    </slave>
-+  </slaves>
+     </slave>
+   </slaves>
    <quietPeriod>5</quietPeriod>
-   <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
-   <views>
-@@ -242,7 +323,7 @@
+@@ -258,7 +323,7 @@
    </views>
    <primaryView>All</primaryView>
    <slaveAgentPort>0</slaveAgentPort>
