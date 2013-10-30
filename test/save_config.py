@@ -8,8 +8,10 @@ def main():
     driver.implicitly_wait(10)
 
     # TODO: Uncomment when #263 and #345 are resolved
-    # https://github.com/mozilla/mozmill-ci/issues/263
-    # https://github.com/mozilla/mozmill-ci/issues/345
+    # * Replace the Node Offline notification plugin with Mail Watcher plugin
+    #   https://github.com/mozilla/mozmill-ci/issues/263
+    # * Upgrade Email-ext plugin to 2.36
+    #   https://github.com/mozilla/mozmill-ci/issues/345
 
     # print 'Saving master node configuration...'
     # driver.get(base_url + 'computer/%28master%29/configure')

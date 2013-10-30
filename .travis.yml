@@ -1,7 +1,5 @@
 language: python
-python:
-  - 2.7
-install: pip install selenium
+python: 2.7
 script: ./run_tests.sh
 notifications:
   email:
