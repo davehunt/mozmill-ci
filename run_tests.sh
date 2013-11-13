@@ -6,27 +6,40 @@
 echo "Checking patches"
 ./test/check_patches.sh || exit $?
 
-echo "Running setup"
-./setup.sh
+DIR_JENKINS_ENV=jenkins-env
+if [ -d "$DIR_JENKINS_ENV" ] && [ -z $CI ]; then
+  echo "Jenkins environment already exists!"
+  while true; do
+    read -p "Would you like to recreate it? " yn
+    case $yn in
+      [Yy]* ) echo "Running setup"; ./setup.sh $DIR_JENKINS_ENV; break;;
+      [Nn]* ) break;;
+      * ) echo "Please answer yes or no.";;
+    esac
+  done
+else
+  echo "Running setup"
+  ./setup.sh $DIR_JENKINS_ENV
+fi
 
 echo "Starting Jenkins"
 ./start.sh > jenkins.out &
 sleep 60
 
 VERSION_VIRTUALENV=1.9.1
-VENV_DIR="test/venv"
+DIR_TEST_ENV="test/venv"
 # Check if environment exists, if not, create a virtualenv:
-if [ -d $VENV_DIR ]
+if [ -d $DIR_TEST_ENV ]
 then
-  echo "Using virtual environment in $VENV_DIR"
+  echo "Using virtual environment in $DIR_TEST_ENV"
 else
-  echo "Creating a virtual environment (version ${VERSION_VIRTUALENV}) in ${VENV_DIR}"
-  curl https://raw.github.com/pypa/virtualenv/${VERSION_VIRTUALENV}/virtualenv.py | python - --no-site-packages $VENV_DIR
+  echo "Creating a virtual environment (version ${VERSION_VIRTUALENV}) in ${DIR_TEST_ENV}"
+  curl https://raw.github.com/pypa/virtualenv/${VERSION_VIRTUALENV}/virtualenv.py | python - --no-site-packages $DIR_TEST_ENV
 fi
-. $VENV_DIR/bin/activate || exit $?
+. $DIR_TEST_ENV/bin/activate || exit $?
 
 pip install selenium
-python test/save_config.py
+python test/configuration/save_config.py
 
 echo "Killing Jenkins"
 pid=$(lsof -i:8080 -t); kill -TERM $pid || kill -KILL $pid
