@@ -9,8 +9,6 @@ import re
 from subprocess import call
 import urllib2
 
-from mozdownload import DirectScraper
-
 JENKINS_VERSION = '1.509.4'
 JENKINS_URL = 'http://mirrors.jenkins-ci.org/war-stable/%s/jenkins.war' % JENKINS_VERSION
 JENKINS_ROOT = os.path.dirname(JENKINS_URL)
@@ -49,10 +47,20 @@ def download_jenkins():
         print "Downloading Jenkins %s from %s" % (JENKINS_VERSION, JENKINS_URL)
         if os.path.isfile('jenkins.war'):
             os.remove('jenkins.war')
-        scraper = DirectScraper(url=JENKINS_URL,
-                                directory=os.getcwd(),
-                                version=None)
-        scraper.download()
+    # Download starts
+    tmp_file = JENKINS_WAR + ".part"
+
+    while True:
+        try:
+            r = urllib2.urlopen(JENKINS_URL)
+            CHUNK = 16 * 1024
+            with open(tmp_file, 'wb') as f:
+                for chunk in iter(lambda: r.read(CHUNK), ''):
+                    f.write(chunk)
+            break
+        except (urllib2.HTTPError, urllib2.URLError):
+            print "Download failed."
+    os.rename(tmp_file, JENKINS_WAR)
 
 if __name__ == "__main__":
     download_jenkins()
