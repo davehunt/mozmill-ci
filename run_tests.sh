@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
+
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
+DIR_TEST_ENV="test/venv"
+DIR_JENKINS_ENV=jenkins-env
+VERSION_VIRTUALENV=1.9.1
+
 echo "Checking patches"
 ./test/check_patches.sh || exit $?
 
-DIR_JENKINS_ENV=jenkins-env
 if [ -d "$DIR_JENKINS_ENV" ] && [ -z $CI ]; then
   echo "Jenkins environment already exists!"
   while true; do
@@ -26,8 +30,6 @@ echo "Starting Jenkins"
 ./start.sh > jenkins.out &
 sleep 60
 
-VERSION_VIRTUALENV=1.9.1
-DIR_TEST_ENV="test/venv"
 # Check if environment exists, if not, create a virtualenv:
 if [ -d $DIR_TEST_ENV ]
 then
