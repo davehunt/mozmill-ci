@@ -127,8 +127,8 @@
             <includeCulprits>false</includeCulprits>
             <sendToRecipientList>true</sendToRecipientList>
             <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>false</attachBuildLog>
-            <compressBuildLog>false</compressBuildLog>
+            <attachBuildLog>true</attachBuildLog>
+            <compressBuildLog>true</compressBuildLog>
             <replyTo></replyTo>
             <contentType>project</contentType>
           </email>
@@ -146,8 +146,8 @@ ${BUILD_URL}</body>
             <includeCulprits>false</includeCulprits>
             <sendToRecipientList>true</sendToRecipientList>
             <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>false</attachBuildLog>
-            <compressBuildLog>false</compressBuildLog>
+            <attachBuildLog>true</attachBuildLog>
+            <compressBuildLog>true</compressBuildLog>
             <replyTo></replyTo>
             <contentType>project</contentType>
           </email>
@@ -162,8 +162,8 @@ ${BUILD_URL}</body>
             <includeCulprits>false</includeCulprits>
             <sendToRecipientList>true</sendToRecipientList>
             <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>false</attachBuildLog>
-            <compressBuildLog>false</compressBuildLog>
+            <attachBuildLog>true</attachBuildLog>
+            <compressBuildLog>true</compressBuildLog>
             <replyTo></replyTo>
             <contentType>project</contentType>
           </email>
@@ -180,8 +180,8 @@ View the results in the Mozmill Dashboard:
 ${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apos;&quot;, showTruncatedLines=false, substText=&quot;http://$1.blargon7.com/#/addons/report/$2&quot;}</defaultContent>
       <attachmentsPattern></attachmentsPattern>
       <presendScript></presendScript>
-      <attachBuildLog>false</attachBuildLog>
-      <compressBuildLog>false</compressBuildLog>
+      <attachBuildLog>true</attachBuildLog>
+      <compressBuildLog>true</compressBuildLog>
       <replyTo></replyTo>
       <saveOutput>false</saveOutput>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
