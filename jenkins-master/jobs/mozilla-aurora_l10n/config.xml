@@ -133,7 +133,7 @@
             <sendToRecipientList>false</sendToRecipientList>
             <attachmentsPattern></attachmentsPattern>
             <attachBuildLog>true</attachBuildLog>
-            <compressBuildLog>true</compressBuildLog>
+            <compressBuildLog>false</compressBuildLog>
             <replyTo></replyTo>
             <contentType>project</contentType>
           </email>
@@ -152,7 +152,7 @@ ${BUILD_URL}</body>
             <sendToRecipientList>true</sendToRecipientList>
             <attachmentsPattern></attachmentsPattern>
             <attachBuildLog>true</attachBuildLog>
-            <compressBuildLog>true</compressBuildLog>
+            <compressBuildLog>false</compressBuildLog>
             <replyTo></replyTo>
             <contentType>project</contentType>
           </email>
@@ -168,7 +168,7 @@ ${BUILD_URL}</body>
             <sendToRecipientList>false</sendToRecipientList>
             <attachmentsPattern></attachmentsPattern>
             <attachBuildLog>true</attachBuildLog>
-            <compressBuildLog>true</compressBuildLog>
+            <compressBuildLog>false</compressBuildLog>
             <replyTo></replyTo>
             <contentType>project</contentType>
           </email>
@@ -186,7 +186,7 @@ ${BUILD_LOG_REGEX, regex=&quot;Report document created at &apos;.*/(.*)/(.*)&apo
       <attachmentsPattern></attachmentsPattern>
       <presendScript></presendScript>
       <attachBuildLog>true</attachBuildLog>
-      <compressBuildLog>true</compressBuildLog>
+      <compressBuildLog>false</compressBuildLog>
       <replyTo></replyTo>
       <saveOutput>false</saveOutput>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
