@@ -16,10 +16,6 @@
       <name>#automation</name>
       <notificationOnly>false</notificationOnly>
     </hudson.plugins.im.GroupChatIMMessageTarget>
-    <hudson.plugins.im.GroupChatIMMessageTarget plugin="instant-messaging@1.28">
-      <name>#mozmill</name>
-      <notificationOnly>false</notificationOnly>
-    </hudson.plugins.im.GroupChatIMMessageTarget>
   </defaultTargets>
   <commandPrefix>!jenkins</commandPrefix>
   <hudsonLogin></hudsonLogin>
