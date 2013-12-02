@@ -5,9 +5,9 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import os
-import re
 from subprocess import call
 import urllib2
+
 
 JENKINS_VERSION = '1.509.4'
 JENKINS_URL = 'http://mirrors.jenkins-ci.org/war-stable/%s/jenkins.war' % JENKINS_VERSION
@@ -16,51 +16,27 @@ JENKINS_WAR = 'jenkins-%s.war' % JENKINS_VERSION
 JENKINS_ENV = 'jenkins-env/bin/activate_this.py'
 
 
-def jenkins_is_up_to_date():
-    """Checks if Jenkins was updated"""
-    req = urllib2.urlopen(JENKINS_ROOT)
-    page = req.read()
-
-    months_regex = '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)'
-    regex = r'\d\d-%(MONTH)s-\d\d\d\d \d\d:\d\d' % {'MONTH': months_regex}
-
-    pattern = re.compile(regex)
-    match = re.search(pattern, page).group()
-
-    if os.path.isfile('last_update.txt'):
-        with open('last_update.txt', 'r') as txt:
-            check = txt.read()
-            if match == check:
-                return True
-
-    with open('last_update.txt', 'w') as txt:
-        txt.write(match)
-    return False
-
-
 def download_jenkins():
     """Downloads Jenkins.war file"""
 
-    if jenkins_is_up_to_date():
-        pass
+    if os.path.isfile(JENKINS_WAR):
+        print "Jenkins already downloaded"
     else:
         print "Downloading Jenkins %s from %s" % (JENKINS_VERSION, JENKINS_URL)
-        if os.path.isfile('jenkins.war'):
-            os.remove('jenkins.war')
-    # Download starts
-    tmp_file = JENKINS_WAR + ".part"
+        # Download starts
+        tmp_file = JENKINS_WAR + ".part"
 
-    while True:
-        try:
-            r = urllib2.urlopen(JENKINS_URL)
-            CHUNK = 16 * 1024
-            with open(tmp_file, 'wb') as f:
-                for chunk in iter(lambda: r.read(CHUNK), ''):
-                    f.write(chunk)
-            break
-        except (urllib2.HTTPError, urllib2.URLError):
-            print "Download failed."
-    os.rename(tmp_file, JENKINS_WAR)
+        while True:
+            try:
+                r = urllib2.urlopen(JENKINS_URL)
+                CHUNK = 16 * 1024
+                with open(tmp_file, 'wb') as f:
+                    for chunk in iter(lambda: r.read(CHUNK), ''):
+                        f.write(chunk)
+                break
+            except (urllib2.HTTPError, urllib2.URLError):
+                print "Download failed."
+        os.rename(tmp_file, JENKINS_WAR)
 
 if __name__ == "__main__":
     download_jenkins()
