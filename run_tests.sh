@@ -27,7 +27,7 @@ else
 fi
 
 echo "Starting Jenkins"
-./start.sh > jenkins.out &
+python start.py > jenkins.out &
 sleep 60
 
 # Check if environment exists, if not, create a virtualenv:
