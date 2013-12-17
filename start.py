@@ -5,13 +5,12 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import os
-from subprocess import call
+from subprocess import call, check_call
 import urllib2
 
 
 JENKINS_VERSION = '1.509.4'
 JENKINS_URL = 'http://mirrors.jenkins-ci.org/war-stable/%s/jenkins.war' % JENKINS_VERSION
-JENKINS_ROOT = os.path.dirname(JENKINS_URL)
 JENKINS_WAR = 'jenkins-%s.war' % JENKINS_VERSION
 JENKINS_ENV = 'jenkins-env/bin/activate_this.py'
 
@@ -36,6 +35,7 @@ def download_jenkins():
                 break
             except (urllib2.HTTPError, urllib2.URLError):
                 print "Download failed."
+                raise
         os.rename(tmp_file, JENKINS_WAR)
 
 if __name__ == "__main__":
@@ -50,9 +50,9 @@ if __name__ == "__main__":
 
         # TODO: Start Jenkins as daemon
         print "Starting Jenkins"
-        args = ['java', '-jar', '-Xms2g', '-Xmx2g', '-XX:MaxPermSize=512M',
-                '-Xincgc', JENKINS_WAR]
-        p = call(args)
+        args = ['java', '-Xms2g', '-Xmx2g', '-XX:MaxPermSize=512M',
+                '-Xincgc', '-jar', JENKINS_WAR]
+        p = check_call(args)
     except IOError:
         print "Could not activate virtual environment."
         print "Exiting."
