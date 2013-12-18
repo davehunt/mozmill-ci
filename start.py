@@ -3,9 +3,11 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+from _ast import Call
+from logilab.common.compat import CalledProcessError
 
 import os
-from subprocess import call, check_call
+from subprocess import check_call, CalledProcessError
 import urllib2
 
 
@@ -55,4 +57,7 @@ if __name__ == "__main__":
         p = check_call(args)
     except IOError:
         print "Could not activate virtual environment."
+        print "Exiting."
+    except CalledProcessError:
+        print "Could not start Jenkins."
         print "Exiting."
