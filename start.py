@@ -47,15 +47,16 @@ if __name__ == "__main__":
         activate_this_file = 'jenkins-env/bin/activate_this.py'
         execfile(JENKINS_ENV, dict(__file__=JENKINS_ENV))
         print "Virtual environment activated successfully."
+    except IOError:
+        print "Could not activate virtual environment."
+        print "Exiting."
 
+    try:
         # TODO: Start Jenkins as daemon
         print "Starting Jenkins"
         args = ['java', '-Xms2g', '-Xmx2g', '-XX:MaxPermSize=512M',
                 '-Xincgc', '-jar', JENKINS_WAR]
         p = check_call(args)
-    except IOError:
-        print "Could not activate virtual environment."
-        print "Exiting."
     except CalledProcessError:
         print "Could not start Jenkins."
         print "Exiting."
