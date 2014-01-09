@@ -20,7 +20,7 @@ You will need to have the Python header files installed:
 * OSX, Windows: Install the latest [Python 2.7](http://www.python.org/getit/)
 
 ## Startup
-To start Jenkins simply run `python start.py` from the mozmill-ci directory. You
+To start Jenkins simply run `./start.py` from the mozmill-ci directory. You
 can tell when Jenkins is running by looking out for "Jenkins is fully up and
 running" in the console output. You will also be able to view the web dashboard
 by pointing your browser at http://localhost:8080/

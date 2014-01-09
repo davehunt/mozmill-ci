@@ -6,6 +6,7 @@
 
 import os
 from subprocess import check_call, CalledProcessError
+import sys
 import urllib2
 
 
@@ -44,12 +45,12 @@ if __name__ == "__main__":
     try:
         # for more info see:
         # http://www.virtualenv.org/en/latest/#using-virtualenv-without-bin-python
-        activate_this_file = 'jenkins-env/bin/activate_this.py'
         execfile(JENKINS_ENV, dict(__file__=JENKINS_ENV))
         print "Virtual environment activated successfully."
     except IOError:
         print "Could not activate virtual environment."
         print "Exiting."
+        sys.exit(IOError)
 
     try:
         # TODO: Start Jenkins as daemon
@@ -60,3 +61,4 @@ if __name__ == "__main__":
     except CalledProcessError:
         print "Could not start Jenkins."
         print "Exiting."
+        sys.exit(CalledProcessError)
