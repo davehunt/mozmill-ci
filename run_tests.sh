@@ -6,7 +6,7 @@
 
 DIR_TEST_ENV="test/venv"
 DIR_JENKINS_ENV=jenkins-env
-VERSION_VIRTUALENV=1.9.1
+VERSION_VIRTUALENV=1.11
 
 echo "Checking patches"
 ./test/check_patches.sh || exit $?
