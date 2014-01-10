@@ -5,7 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import os
-from subprocess import check_call, CalledProcessError
+import subprocess
 import sys
 import urllib2
 
@@ -52,13 +52,8 @@ if __name__ == "__main__":
         print "Exiting."
         sys.exit(IOError)
 
-    try:
-        # TODO: Start Jenkins as daemon
-        print "Starting Jenkins"
-        args = ['java', '-Xms2g', '-Xmx2g', '-XX:MaxPermSize=512M',
-                '-Xincgc', '-jar', JENKINS_WAR]
-        p = check_call(args)
-    except CalledProcessError:
-        print "Could not start Jenkins."
-        print "Exiting."
-        sys.exit(CalledProcessError)
+    # TODO: Start Jenkins as daemon
+    print "Starting Jenkins"
+    args = ['java', '-Xms2g', '-Xmx2g', '-XX:MaxPermSize=512M',
+            '-Xincgc', '-jar', JENKINS_WAR]
+    subprocess.Popen(args)
