@@ -54,6 +54,7 @@ if __name__ == "__main__":
 
     # TODO: Start Jenkins as daemon
     print "Starting Jenkins"
+    os.environ['JENKINS_HOME'] = 'jenkins-master'
     args = ['java', '-Xms2g', '-Xmx2g', '-XX:MaxPermSize=512M',
             '-Xincgc', '-jar', JENKINS_WAR]
     subprocess.Popen(args)
